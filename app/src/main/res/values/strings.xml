@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Reels App</string>
+    <string name="open_reels">Open Reels</string>
+    <string name="lets_go">Let\'s Go!</string>
+    <string name="not_now">Not now</string>
+    <string name="welcome_title">Welcome to Reels</string>
+    <string name="welcome_subtitle">Discover short video stories anytime</string>
+    <string name="dialog_title">Open Reels</string>
+    <string name="dialog_body">Get ready to dive into your personalized short video feed — swipe, discover, and enjoy!</string>
+</resources>
