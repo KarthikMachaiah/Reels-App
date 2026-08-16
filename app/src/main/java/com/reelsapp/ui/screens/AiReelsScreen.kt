@@ -193,33 +193,32 @@ fun AiReelsScreen(
                                     scope.launch {
                                         delay(1500)
                                         val cleanPrompt = prompt.trim()
-                                        val lower = cleanPrompt.lowercase()
-                                        val selectedVideo = if (lower.contains("cat") || lower.contains("kitten") || lower.contains("pet")) {
-                                            "android.resource://com.reelsapp.debug/${R.raw.cat_reel}"
-                                        } else {
-                                            "android.resource://com.reelsapp.debug/${R.raw.ai_reel_1}"
-                                        }
+                                        val encodedPrompt = java.net.URLEncoder.encode(cleanPrompt, "UTF-8")
+                                        
+                                        // Real Live AI Image Generation URLs (Free Flux / Stable Diffusion models)
+                                        val aiImage1 = "https://image.pollinations.ai/prompt/${encodedPrompt}?width=1080&height=1920&nologo=true&seed=101"
+                                        val aiImage2 = "https://image.pollinations.ai/prompt/${encodedPrompt}+cinematic+shot+8k?width=1080&height=1920&nologo=true&seed=202"
 
                                         generatedReels = listOf(
                                             ReelItem(
                                                 id = "ai_1_${System.currentTimeMillis()}",
-                                                videoUrl = selectedVideo,
-                                                thumbnailUrl = "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=600",
-                                                title = "🐱 AI Reel: $cleanPrompt 🐾 #GeminiAI #CatContent",
+                                                videoUrl = "android.resource://com.reelsapp.debug/${R.raw.ai_reel_1}",
+                                                thumbnailUrl = aiImage1,
+                                                title = "🎨 AI Generated Artwork: $cleanPrompt ⚡ #PollinationsAI",
                                                 username = "gemini_ai_bot",
                                                 userAvatar = R.drawable.karthik_avatar,
-                                                likesCount = "248.5K",
-                                                commentsCount = "12.8K"
+                                                likesCount = "184.2K",
+                                                commentsCount = "9.4K"
                                             ),
                                             ReelItem(
                                                 id = "ai_2_${System.currentTimeMillis()}",
                                                 videoUrl = "android.resource://com.reelsapp.debug/${R.raw.ai_reel_2}",
-                                                thumbnailUrl = "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=600",
-                                                title = "✨ AI Scene 2: $cleanPrompt 🎬 #AIContent",
+                                                thumbnailUrl = aiImage2,
+                                                title = "✨ AI Cinematic Render: $cleanPrompt 🎬 #AIArtwork",
                                                 username = "gemini_ai_bot",
                                                 userAvatar = R.drawable.karthik_avatar,
-                                                likesCount = "89.2K",
-                                                commentsCount = "3.1K"
+                                                likesCount = "92.6K",
+                                                commentsCount = "4.1K"
                                             )
                                         )
                                         isGenerating = false
