@@ -10,8 +10,8 @@ val MintSurfaceDark   = Color(0xFF1A3D2E)
 
 val OffWhite          = Color(0xFFF4FDF8)
 val SoftWhite         = Color(0xFFFFFFFF)
-val DeepBlack         = Color(0xFF0A0F0C)
-val DarkSurface       = Color(0xFF121A15)
+val DeepBlack         = Color(0xFF000000)
+val DarkSurface       = Color(0xFF121212)
 
 val TextPrimary       = Color(0xFF0D2818)
 val TextSecondary     = Color(0xFF4A7A60)

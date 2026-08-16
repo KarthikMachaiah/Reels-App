@@ -14,6 +14,15 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
+import com.reelsapp.data.model.HomeFeedCard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -191,26 +200,128 @@ private fun HomeDashboardContent(
             )
         }
     } else {
-        val gradient = Brush.verticalGradient(
-            colors = listOf(
-                MaterialTheme.colorScheme.background,
-                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-                MaterialTheme.colorScheme.background
-            )
-        )
+        val pagingFlow = remember {
+            Pager(
+                config = PagingConfig(
+                    pageSize = 10,
+                    enablePlaceholders = false
+                ),
+                pagingSourceFactory = { com.reelsapp.data.paging.HomeFeedPagingSource() }
+            ).flow
+        }
+        val lazyPagingItems = pagingFlow.collectAsLazyPagingItems()
 
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Color.Transparent
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            contentPadding = PaddingValues(
+                start = 20.dp,
+                end = 20.dp,
+                top = 28.dp,
+                bottom = 100.dp
+            )
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(gradient)
-                    .padding(bottom = 80.dp), // Clear floating app bar
-                contentAlignment = Alignment.Center
-            ) {
+            item {
                 OpenReelsHeroCard(onClick = onOpenReelsClick)
+                Spacer(Modifier.height(28.dp))
+                Text(
+                    text = "Live Internet Feed Cards (Cursor Paginated)",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(bottom = 14.dp)
+                )
+            }
+
+            items(
+                count = lazyPagingItems.itemCount,
+                key = lazyPagingItems.itemKey { card: HomeFeedCard -> card.id }
+            ) { index ->
+                val cardItem = lazyPagingItems[index]
+                if (cardItem != null) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surface
+                        ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                    ) {
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            // High Resolution Remote Cover Image from Internet
+                            coil.compose.AsyncImage(
+                                model = cardItem.imageUrl,
+                                contentDescription = cardItem.title,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp)
+                                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
+                                contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                            )
+
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    coil.compose.AsyncImage(
+                                        model = cardItem.avatarUrl,
+                                        contentDescription = cardItem.author,
+                                        modifier = Modifier
+                                            .size(36.dp)
+                                            .clip(CircleShape)
+                                    )
+                                    Spacer(Modifier.width(10.dp))
+                                    Column {
+                                        Text(
+                                            text = cardItem.author,
+                                            style = MaterialTheme.typography.labelMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                        Text(
+                                            text = cardItem.category,
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = BrandEmerald
+                                        )
+                                    }
+                                }
+                                Spacer(Modifier.height(10.dp))
+                                Text(
+                                    text = cardItem.title,
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Spacer(Modifier.height(6.dp))
+                                Text(
+                                    text = "❤️ ${cardItem.likesCount} likes • Loaded via Cursor Pagination",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Append Loading Indicator state
+            if (lazyPagingItems.loadState.append is androidx.paging.LoadState.Loading) {
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        androidx.compose.material3.CircularProgressIndicator(
+                            color = BrandEmerald,
+                            modifier = Modifier.size(28.dp)
+                        )
+                    }
+                }
             }
         }
 

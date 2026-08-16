@@ -15,6 +15,10 @@ MERGED from [androidx.compose.material3:material3-window-size-class-android:1.4.
 MERGED from [androidx.navigation:navigation-runtime-android:2.9.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\8b35ccbdaf4d294fa3d2a039ffd58c43\transformed\navigation-runtime-release\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-android:2.9.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\b52e1a807e0e02b97c1aba0cd359321b\transformed\navigation-common-release\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-compose-android:2.9.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\f275732abbc197caa6cf7309c2e47032\transformed\navigation-compose-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.paging:paging-compose-android:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\e1be5e08a4ffe1e335ac7446cf6ac753\transformed\paging-compose-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.paging:paging-common-android:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\476b6f2ade44ad29dd7a8988a44a9c9d\transformed\paging-common-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.paging:paging-runtime-ktx:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\a6a298cd57ed7ee03a786bb81daca1d6\transformed\paging-runtime-ktx-3.3.2\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.paging:paging-runtime:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\435501e9a6692ff40cf07cc2fb2f2b62\transformed\paging-runtime-3.3.2\AndroidManifest.xml:2:1-7:12
 MERGED from [io.coil-kt:coil-compose:2.7.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\a41ddd5cc8cb77c06dcdb9e1c51e5237\transformed\coil-compose-2.7.0\AndroidManifest.xml:2:1-7:12
 MERGED from [io.coil-kt:coil-compose-base:2.7.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\5714554c9a7bccde645610dfdafc3d3d\transformed\coil-compose-base-2.7.0\AndroidManifest.xml:2:1-7:12
 MERGED from [io.coil-kt:coil:2.7.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\e6582417030330d498869aa65582636b\transformed\coil-2.7.0\AndroidManifest.xml:2:1-7:12
@@ -74,6 +78,7 @@ MERGED from [androidx.savedstate:savedstate-compose-android:1.3.0] C:\Users\kart
 MERGED from [androidx.savedstate:savedstate-android:1.3.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\b689f6d9f00ef12c46b4109489d7199c\transformed\savedstate-release\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\47c9c2c89025cbc3750d88ba1f9dec3a\transformed\lifecycle-runtime-release\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\367e06ca711c9836589c7a67b338cef4\transformed\lifecycle-livedata-core-2.9.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\751bf97743d13e360c6ff4b2ed5050f9\transformed\lifecycle-livedata-ktx-2.9.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\56bf5c3d7b098bbd994adb40aa79a50e\transformed\lifecycle-viewmodel-ktx-2.9.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.lifecycle:lifecycle-runtime-compose-android:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\401d65d6ed389679011a2a33e661e598\transformed\lifecycle-runtime-compose-release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\9e379da3aa66f0ec18e91567c861c186\transformed\lifecycle-runtime-ktx\AndroidManifest.xml:2:1-7:12
@@ -208,6 +213,14 @@ MERGED from [androidx.navigation:navigation-common-android:2.9.0] C:\Users\karth
 MERGED from [androidx.navigation:navigation-common-android:2.9.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\b52e1a807e0e02b97c1aba0cd359321b\transformed\navigation-common-release\AndroidManifest.xml:20:5-44
 MERGED from [androidx.navigation:navigation-compose-android:2.9.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\f275732abbc197caa6cf7309c2e47032\transformed\navigation-compose-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.navigation:navigation-compose-android:2.9.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\f275732abbc197caa6cf7309c2e47032\transformed\navigation-compose-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.paging:paging-compose-android:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\e1be5e08a4ffe1e335ac7446cf6ac753\transformed\paging-compose-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.paging:paging-compose-android:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\e1be5e08a4ffe1e335ac7446cf6ac753\transformed\paging-compose-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.paging:paging-common-android:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\476b6f2ade44ad29dd7a8988a44a9c9d\transformed\paging-common-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.paging:paging-common-android:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\476b6f2ade44ad29dd7a8988a44a9c9d\transformed\paging-common-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.paging:paging-runtime-ktx:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\a6a298cd57ed7ee03a786bb81daca1d6\transformed\paging-runtime-ktx-3.3.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.paging:paging-runtime-ktx:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\a6a298cd57ed7ee03a786bb81daca1d6\transformed\paging-runtime-ktx-3.3.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.paging:paging-runtime:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\435501e9a6692ff40cf07cc2fb2f2b62\transformed\paging-runtime-3.3.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.paging:paging-runtime:3.3.2] C:\Users\karth\.gradle\caches\9.7.0\transforms\435501e9a6692ff40cf07cc2fb2f2b62\transformed\paging-runtime-3.3.2\AndroidManifest.xml:5:5-44
 MERGED from [io.coil-kt:coil-compose:2.7.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\a41ddd5cc8cb77c06dcdb9e1c51e5237\transformed\coil-compose-2.7.0\AndroidManifest.xml:5:5-44
 MERGED from [io.coil-kt:coil-compose:2.7.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\a41ddd5cc8cb77c06dcdb9e1c51e5237\transformed\coil-compose-2.7.0\AndroidManifest.xml:5:5-44
 MERGED from [io.coil-kt:coil-compose-base:2.7.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\5714554c9a7bccde645610dfdafc3d3d\transformed\coil-compose-base-2.7.0\AndroidManifest.xml:5:5-44
@@ -326,6 +339,8 @@ MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.9.1] C:\Users\karth\
 MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\47c9c2c89025cbc3750d88ba1f9dec3a\transformed\lifecycle-runtime-release\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\367e06ca711c9836589c7a67b338cef4\transformed\lifecycle-livedata-core-2.9.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\367e06ca711c9836589c7a67b338cef4\transformed\lifecycle-livedata-core-2.9.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\751bf97743d13e360c6ff4b2ed5050f9\transformed\lifecycle-livedata-ktx-2.9.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-ktx:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\751bf97743d13e360c6ff4b2ed5050f9\transformed\lifecycle-livedata-ktx-2.9.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\56bf5c3d7b098bbd994adb40aa79a50e\transformed\lifecycle-viewmodel-ktx-2.9.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\56bf5c3d7b098bbd994adb40aa79a50e\transformed\lifecycle-viewmodel-ktx-2.9.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime-compose-android:2.9.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\401d65d6ed389679011a2a33e661e598\transformed\lifecycle-runtime-compose-release\AndroidManifest.xml:5:5-44

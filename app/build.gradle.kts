@@ -97,6 +97,10 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
 
+    // Paging 3 (Cursor-based pagination)
+    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
+    implementation("androidx.paging:paging-compose:3.3.2")
+
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

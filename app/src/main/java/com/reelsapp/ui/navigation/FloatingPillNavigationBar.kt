@@ -30,6 +30,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -72,6 +73,44 @@ fun FloatingPillNavigationBar(
 ) {
     val haptic = LocalHapticFeedback.current
 
+    // Adapt glass border and background tint seamlessly between Light and Dark themes
+    val isDark = MaterialTheme.colorScheme.background == Color(0xFF000000)
+
+    val borderColor = if (isDark) {
+        Brush.verticalGradient(
+            colors = listOf(
+                Color.White.copy(alpha = 0.18f),
+                Color.White.copy(alpha = 0.05f)
+            )
+        )
+    } else {
+        Brush.verticalGradient(
+            colors = listOf(
+                Color.White.copy(alpha = 0.90f),
+                Color.White.copy(alpha = 0.30f)
+            )
+        )
+    }
+
+    val glassBackgroundTint = if (isDark) {
+        Brush.verticalGradient(
+            colors = listOf(
+                Color(0xFF1C1C1E).copy(alpha = 0.70f),
+                Color(0xFF121212).copy(alpha = 0.50f)
+            )
+        )
+    } else {
+        Brush.verticalGradient(
+            colors = listOf(
+                Color.White.copy(alpha = 0.12f),
+                Color.White.copy(alpha = 0.04f)
+            )
+        )
+    }
+
+    val inactiveTabColor = if (isDark) Color(0xFF8E8E93) else Color(0xFF3A3A3C)
+    val selectedCapsuleBg = if (isDark) Color.White.copy(alpha = 0.12f) else Color.Black.copy(alpha = 0.14f)
+
     Box(
         modifier = modifier
             .padding(horizontal = 24.dp, vertical = 18.dp)
@@ -80,18 +119,13 @@ fun FloatingPillNavigationBar(
             .shadow(
                 elevation = 16.dp,
                 shape = CircleShape,
-                ambientColor = Color.Black.copy(alpha = 0.25f),
-                spotColor = Color.Black.copy(alpha = 0.35f)
+                ambientColor = Color.Black.copy(alpha = 0.40f),
+                spotColor = Color.Black.copy(alpha = 0.50f)
             )
             .clip(CircleShape)
             .border(
-                width = 1.25.dp,
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color.White.copy(alpha = 0.90f),
-                        Color.White.copy(alpha = 0.30f)
-                    )
-                ),
+                width = 1.dp,
+                brush = borderColor,
                 shape = CircleShape
             ),
         contentAlignment = Alignment.Center
@@ -113,15 +147,7 @@ fun FloatingPillNavigationBar(
                         renderEffect = RenderEffect.createChainEffect(blurEffect, colorFilterEffect).asComposeRenderEffect()
                     }
                 }
-                // High contrast translucent liquid tint: 35% opacity white
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xFFF8F9FA).copy(alpha = 0.45f),
-                            Color(0xFFE9ECEF).copy(alpha = 0.25f)
-                        )
-                    )
-                )
+                .background(glassBackgroundTint)
         )
 
         // Foreground Content Layer: Sharp crisp navigation items
@@ -151,9 +177,7 @@ fun FloatingPillNavigationBar(
                         .clip(CircleShape)
                         .then(
                             if (isSelected) {
-                                Modifier.background(
-                                    Color.Black.copy(alpha = 0.14f)
-                                )
+                                Modifier.background(selectedCapsuleBg)
                             } else Modifier
                         )
                         .clickable(
@@ -172,13 +196,13 @@ fun FloatingPillNavigationBar(
                         Icon(
                             imageVector = item.icon,
                             contentDescription = item.title,
-                            tint = if (isSelected) BrandEmerald else Color(0xFF3A3A3C),
+                            tint = if (isSelected) BrandEmerald else inactiveTabColor,
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(Modifier.height(2.dp))
                         Text(
                             text = item.title,
-                            color = if (isSelected) BrandEmerald else Color(0xFF3A3A3C),
+                            color = if (isSelected) BrandEmerald else inactiveTabColor,
                             fontSize = 11.sp,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                             maxLines = 1,
