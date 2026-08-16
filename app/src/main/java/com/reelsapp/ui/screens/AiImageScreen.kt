@@ -64,7 +64,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun AiReelsScreen(
+fun AiImageScreen(
     onReelsPlaybackStateChanged: ((Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
@@ -128,7 +128,7 @@ fun AiReelsScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Filled.AutoAwesome,
-                        contentDescription = "AI Reels",
+                        contentDescription = "AI Image",
                         tint = BrandEmerald,
                         modifier = Modifier.size(46.dp)
                     )
@@ -137,14 +137,14 @@ fun AiReelsScreen(
                 Spacer(Modifier.height(20.dp))
 
                 Text(
-                    text = "AI Reel Generator",
+                    text = "AI Image Generator",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Text(
-                    text = "Enter any script or topic. Gemini AI will automatically script, edit, and render a dedicated vertical AI Reel feed for you!",
+                    text = "Type any prompt. Flux AI will generate high-definition vertical 9:16 AI artwork for you on-demand!",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
@@ -208,7 +208,8 @@ fun AiReelsScreen(
                                                 username = "gemini_ai_bot",
                                                 userAvatar = R.drawable.karthik_avatar,
                                                 likesCount = "184.2K",
-                                                commentsCount = "9.4K"
+                                                commentsCount = "9.4K",
+                                                isAiImage = true
                                             ),
                                             ReelItem(
                                                 id = "ai_2_${System.currentTimeMillis()}",
@@ -218,7 +219,8 @@ fun AiReelsScreen(
                                                 username = "gemini_ai_bot",
                                                 userAvatar = R.drawable.karthik_avatar,
                                                 likesCount = "92.6K",
-                                                commentsCount = "4.1K"
+                                                commentsCount = "4.1K",
+                                                isAiImage = true
                                             )
                                         )
                                         isGenerating = false
@@ -251,7 +253,7 @@ fun AiReelsScreen(
                                     modifier = Modifier.size(20.dp)
                                 )
                                 Spacer(Modifier.width(8.dp))
-                                Text("Generate AI Reel Feed", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                                Text("Generate AI Image", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                             }
                         }
                     }

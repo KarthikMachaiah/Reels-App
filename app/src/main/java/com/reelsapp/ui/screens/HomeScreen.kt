@@ -94,7 +94,7 @@ fun HomeScreen(
     val isAppNavVisible = when (currentTab) {
         AppTab.HOME -> !state.isReelsFeedActive
         AppTab.JUST_REELS -> false
-        AppTab.AI_REELS -> !isAiReelActive
+        AppTab.AI_IMAGE -> !isAiReelActive
         AppTab.PROFILE -> true
     }
 
@@ -123,9 +123,9 @@ fun HomeScreen(
                         onCloseReelsFeed = { viewModel.closeReelsFeed() }
                     )
                 }
-                AppTab.AI_REELS -> {
-                    // Dedicated AI Reels Generator Page
-                    AiReelsScreen(
+                AppTab.AI_IMAGE -> {
+                    // Dedicated AI Image Generator Page
+                    AiImageScreen(
                         onReelsPlaybackStateChanged = { isPlaying ->
                             isAiReelActive = isPlaying
                         }

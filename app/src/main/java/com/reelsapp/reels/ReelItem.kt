@@ -11,5 +11,6 @@ data class ReelItem(
     val userAvatar: Int = R.drawable.karthik_avatar,
     val likesCount: String,
     val commentsCount: String,
-    val isLiked: Boolean = false
+    val isLiked: Boolean = false,
+    val isAiImage: Boolean = false
 )

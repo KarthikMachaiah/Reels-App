@@ -281,7 +281,7 @@ private fun ReelPageItem(
     }
 
     val thumbnailAlpha by animateFloatAsState(
-        targetValue = if (isCurrentPage && hasFirstFrame) 0f else 1f,
+        targetValue = if (reel.isAiImage) 1f else if (isCurrentPage && hasFirstFrame) 0f else 1f,
         label = "thumbnailAlpha"
     )
 

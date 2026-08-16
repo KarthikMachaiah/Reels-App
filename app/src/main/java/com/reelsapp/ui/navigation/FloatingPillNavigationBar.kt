@@ -48,7 +48,7 @@ data class TabItem(
 
 val navTabs = listOf(
     TabItem(AppTab.HOME, "Home", Icons.Filled.Home),
-    TabItem(AppTab.AI_REELS, "AI Reels", Icons.Filled.AutoAwesome),
+    TabItem(AppTab.AI_IMAGE, "AI Image", Icons.Filled.AutoAwesome),
     TabItem(AppTab.JUST_REELS, "Reels", Icons.Filled.PlayArrow),
     TabItem(AppTab.PROFILE, "Profile", Icons.Filled.Person)
 )
