@@ -90,7 +90,7 @@ fun FloatingPillNavigationBar(
             .padding(6.dp),
         contentAlignment = Alignment.Center
     ) {
-        // iOS Sliding Glass Capsule Indicator
+        // Liquid Glass Capsule Indicator
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -103,7 +103,7 @@ fun FloatingPillNavigationBar(
                         dampingRatio = Spring.DampingRatioMediumBouncy,
                         stiffness = Spring.StiffnessLow
                     ),
-                    label = "iosScale"
+                    label = "glassScale"
                 )
 
                 Box(
