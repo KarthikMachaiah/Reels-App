@@ -1,0 +1,22 @@
+R_DEF: Internal format may change without notice
+local
+drawable karthik_avatar
+mipmap ic_launcher
+mipmap ic_launcher_round
+mipmap karthik
+raw ai_reel_1
+raw ai_reel_2
+raw cat_reel
+raw reel_1
+raw reel_2
+raw reel_3
+raw reel_4
+string app_name
+string dialog_body
+string dialog_title
+string lets_go
+string not_now
+string open_reels
+string welcome_subtitle
+string welcome_title
+style Theme.ReelsApp

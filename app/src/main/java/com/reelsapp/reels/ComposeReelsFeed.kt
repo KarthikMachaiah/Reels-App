@@ -144,8 +144,10 @@ fun ComposeReelsFeed(
                 activePageIndex = page
                 hasFirstFrameRendered = false
                 val item = reels.getOrNull(page)
-                if (item != null) {
+                if (item != null && !item.isAiImage) {
                     ReelPlayerManager.prepareMedia(context, player, item.videoUrl)
+                } else if (item != null && item.isAiImage) {
+                    player.pause()
                 }
             }
     }
@@ -304,26 +306,28 @@ private fun ReelPageItem(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onTap = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        showControlsOverlay = true
-                        if (player.isPlaying) {
-                            player.pause()
-                            isPlaying = false
-                        } else {
-                            player.play()
-                            isPlaying = true
+            .pointerInput(reel.isAiImage) {
+                if (!reel.isAiImage) {
+                    detectTapGestures(
+                        onTap = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            showControlsOverlay = true
+                            if (player.isPlaying) {
+                                player.pause()
+                                isPlaying = false
+                            } else {
+                                player.play()
+                                isPlaying = true
+                            }
+                        },
+                        onDoubleTap = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            // Double tap: Like reel with ThumbsUp animation!
+                            isLiked = true
+                            showThumbsUpAnim = true
                         }
-                    },
-                    onDoubleTap = {
-                        haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                        // Double tap: Like reel with ThumbsUp animation!
-                        isLiked = true
-                        showThumbsUpAnim = true
-                    }
-                )
+                    )
+                }
             }
     ) {
         // Video Player (Only attached for normal video reels)
@@ -470,61 +474,65 @@ private fun ReelPageItem(
             )
         }
 
-        // Right-Side Social Actions (Like 👍, Comment 💬, Share 📤)
-        Column(
+        // Right-Side Social Actions (Like 👍, Comment 💬, Share 📤) - Only for Video Reels
+        AnimatedVisibility(
+            visible = !reel.isAiImage,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(end = 16.dp, bottom = 48.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+                .padding(end = 16.dp, bottom = 48.dp)
         ) {
-            // 👍 Thumbs Up Like Button
-            IconButton(onClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                isLiked = !isLiked
-            }) {
-                Icon(
-                    imageVector = if (isLiked) Icons.Filled.ThumbUp else Icons.Outlined.ThumbUp,
-                    contentDescription = "Like",
-                    tint = if (isLiked) BrandEmerald else Color.White,
-                    modifier = Modifier.size(32.dp)
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                // 👍 Thumbs Up Like Button
+                IconButton(onClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    isLiked = !isLiked
+                }) {
+                    Icon(
+                        imageVector = if (isLiked) Icons.Filled.ThumbUp else Icons.Outlined.ThumbUp,
+                        contentDescription = "Like",
+                        tint = if (isLiked) BrandEmerald else Color.White,
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
+                Text(
+                    text = reel.likesCount,
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold
                 )
-            }
-            Text(
-                text = reel.likesCount,
-                color = Color.White,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold
-            )
 
-            IconButton(onClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                onCommentClick()
-            }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.Comment,
-                    contentDescription = "Comment",
-                    tint = Color.White,
-                    modifier = Modifier.size(30.dp)
+                IconButton(onClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onCommentClick()
+                }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.Comment,
+                        contentDescription = "Comment",
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+                Text(
+                    text = reel.commentsCount,
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold
                 )
-            }
-            Text(
-                text = reel.commentsCount,
-                color = Color.White,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold
-            )
 
-            IconButton(onClick = {
-                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                onShareClick()
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Share,
-                    contentDescription = "Share",
-                    tint = Color.White,
-                    modifier = Modifier.size(30.dp)
-                )
+                IconButton(onClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onShareClick()
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Share,
+                        contentDescription = "Share",
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
             }
         }
 

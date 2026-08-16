@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -67,40 +68,48 @@ fun FloatingPillNavigationBar(
 
     Box(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .padding(horizontal = 28.dp, vertical = 20.dp)
             .fillMaxWidth()
-            .height(64.dp)
-            .clip(RoundedCornerShape(32.dp))
+            .height(76.dp)
+            .shadow(
+                elevation = 16.dp,
+                shape = CircleShape,
+                ambientColor = Color.Black.copy(alpha = 0.15f),
+                spotColor = Color.Black.copy(alpha = 0.25f)
+            )
+            .clip(CircleShape)
+            // Liquid Frosted Glass translucency matching Apple Liquid Glass Dribbble 26294545
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(0xFF1E242B).copy(alpha = 0.85f),
-                        Color(0xFF12161A).copy(alpha = 0.92f)
+                        Color.White.copy(alpha = 0.78f),
+                        Color.White.copy(alpha = 0.48f)
                     )
                 )
             )
+            // Double specular inner glass rim
             .border(
-                width = 0.75.dp,
+                width = 1.5.dp,
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color.White.copy(alpha = 0.35f),
-                        Color.White.copy(alpha = 0.08f)
+                        Color.White.copy(alpha = 0.95f),
+                        Color.White.copy(alpha = 0.35f)
                     )
                 ),
-                shape = RoundedCornerShape(32.dp)
+                shape = CircleShape
             )
-            .padding(horizontal = 8.dp, vertical = 4.dp),
+            .padding(6.dp),
         contentAlignment = Alignment.Center
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
             navTabs.forEach { item ->
                 val isSelected = currentTab == item.tab
                 val scale by animateFloatAsState(
-                    targetValue = if (isSelected) 1.12f else 1.0f,
+                    targetValue = if (isSelected) 1.04f else 1.0f,
                     animationSpec = spring(
                         dampingRatio = Spring.DampingRatioMediumBouncy,
                         stiffness = Spring.StiffnessMedium
@@ -108,48 +117,54 @@ fun FloatingPillNavigationBar(
                     label = "tabScale"
                 )
 
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
+                // Liquid selection pill capsule matching reference.jpg
+                Box(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
                         .scale(scale)
+                        .clip(CircleShape)
+                        .then(
+                            if (isSelected) {
+                                Modifier.background(
+                                    Brush.verticalGradient(
+                                        colors = listOf(
+                                            Color.Black.copy(alpha = 0.14f),
+                                            Color.Black.copy(alpha = 0.07f)
+                                        )
+                                    )
+                                )
+                            } else Modifier
+                        )
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null
                         ) {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             onTabSelected(item.tab)
-                        }
+                        },
+                    contentAlignment = Alignment.Center
                 ) {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .size(36.dp)
-                            .clip(CircleShape)
-                            .background(
-                                if (isSelected) BrandEmerald.copy(alpha = 0.18f) else Color.Transparent
-                            )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
                         Icon(
                             imageVector = item.icon,
                             contentDescription = item.title,
-                            tint = if (isSelected) BrandEmerald else Color(0xFF8E8E93),
-                            modifier = Modifier.size(22.dp)
+                            tint = if (isSelected) Color(0xFFFF2D55) else Color(0xFF636366),
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(Modifier.height(2.dp))
+                        Text(
+                            text = item.title,
+                            color = if (isSelected) Color(0xFFFF2D55) else Color(0xFF636366),
+                            fontSize = 11.sp,
+                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                            maxLines = 1,
+                            softWrap = false
                         )
                     }
-
-                    Spacer(Modifier.height(2.dp))
-
-                    Text(
-                        text = item.title,
-                        color = if (isSelected) BrandEmerald else Color(0xFF8E8E93),
-                        fontSize = 11.sp,
-                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                        maxLines = 1,
-                        softWrap = false
-                    )
                 }
             }
         }
