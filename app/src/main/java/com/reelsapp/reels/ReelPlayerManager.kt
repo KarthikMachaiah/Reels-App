@@ -9,17 +9,37 @@ import androidx.media3.common.MimeTypes
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.database.StandaloneDatabaseProvider
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
+import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
+import java.io.File
 
 @OptIn(UnstableApi::class)
 object ReelPlayerManager {
 
     private const val TAG = "ReelPlayerManager"
     private val playerPool = mutableListOf<ExoPlayer>()
+
+    @Volatile
+    private var simpleCache: SimpleCache? = null
+
+    @Synchronized
+    private fun getSimpleCache(context: Context): SimpleCache {
+        if (simpleCache == null) {
+            val cacheDir = File(context.applicationContext.cacheDir, "reels_media_cache")
+            val evictor = LeastRecentlyUsedCacheEvictor(150 * 1024 * 1024L) // 150 MB LRU Limit
+            val databaseProvider = StandaloneDatabaseProvider(context.applicationContext)
+            simpleCache = SimpleCache(cacheDir, evictor, databaseProvider)
+            Log.d(TAG, "Initialized 150 MB LRU SimpleCache at ${cacheDir.absolutePath}")
+        }
+        return simpleCache!!
+    }
 
     fun acquirePlayer(context: Context): ExoPlayer {
         val player = if (playerPool.isNotEmpty()) {
@@ -80,7 +100,6 @@ object ReelPlayerManager {
         val uri = Uri.parse(url)
 
         if (url.startsWith("android.resource://")) {
-            // Explicitly specify VIDEO_MP4 MimeType for raw android.resource:// media items
             val mediaItem = MediaItem.Builder()
                 .setUri(uri)
                 .setMimeType(MimeTypes.VIDEO_MP4)
@@ -94,8 +113,15 @@ object ReelPlayerManager {
                 .setReadTimeoutMs(15000)
                 .setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
-            val dataSourceFactory = DefaultDataSource.Factory(context.applicationContext, httpDataSourceFactory)
-            val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+            val upstreamFactory = DefaultDataSource.Factory(context.applicationContext, httpDataSourceFactory)
+
+            // Wrap with 150 MB LRU CacheDataSource
+            val cacheDataSourceFactory = CacheDataSource.Factory()
+                .setCache(getSimpleCache(context))
+                .setUpstreamDataSourceFactory(upstreamFactory)
+                .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
+
+            val mediaSource = ProgressiveMediaSource.Factory(cacheDataSourceFactory)
                 .createMediaSource(mediaItem)
             player.setMediaSource(mediaSource)
         }
