@@ -121,6 +121,9 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
 
+    // Haze (Backdrop Blur)
+    implementation("dev.chrisbanes.haze:haze:1.3.0")
+
     // Networking
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization)

@@ -34,6 +34,7 @@ MERGED from [androidx.media3:media3-exoplayer-hls:1.6.1] C:\Users\karth\.gradle\
 MERGED from [androidx.media3:media3-exoplayer:1.6.1] C:\Users\karth\.gradle\caches\9.7.0\transforms\8509bd9590eef7ea718353437436f68e\transformed\media3-exoplayer-1.6.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.recyclerview:recyclerview:1.3.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\43e9455df287b36b2795601f8eaf664a\transformed\recyclerview-1.3.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.window:window:1.0.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\485655cc3e02a5511a4d2023072be84d\transformed\window-1.0.0\AndroidManifest.xml:17:1-33:12
+MERGED from [dev.chrisbanes.haze:haze-android:1.3.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\dc2d371f389f107f7e96eda8c3e1e73f\transformed\haze-release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.material:material-android:1.8.3] C:\Users\karth\.gradle\caches\9.7.0\transforms\bff64301715ee7da68b98868f6d03784\transformed\material-release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.animation:animation-core-android:1.8.3] C:\Users\karth\.gradle\caches\9.7.0\transforms\eb3de81b0f450176bb1a9dbbb3326b89\transformed\animation-core-release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.compose.material:material-ripple-android:1.8.3] C:\Users\karth\.gradle\caches\9.7.0\transforms\81d9c50fbe6999dc167aa748f16fae88\transformed\material-ripple-release\AndroidManifest.xml:2:1-7:12
@@ -245,6 +246,8 @@ MERGED from [androidx.recyclerview:recyclerview:1.3.0] C:\Users\karth\.gradle\ca
 MERGED from [androidx.recyclerview:recyclerview:1.3.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\43e9455df287b36b2795601f8eaf664a\transformed\recyclerview-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.window:window:1.0.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\485655cc3e02a5511a4d2023072be84d\transformed\window-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.0.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\485655cc3e02a5511a4d2023072be84d\transformed\window-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [dev.chrisbanes.haze:haze-android:1.3.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\dc2d371f389f107f7e96eda8c3e1e73f\transformed\haze-release\AndroidManifest.xml:5:5-44
+MERGED from [dev.chrisbanes.haze:haze-android:1.3.0] C:\Users\karth\.gradle\caches\9.7.0\transforms\dc2d371f389f107f7e96eda8c3e1e73f\transformed\haze-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.material:material-android:1.8.3] C:\Users\karth\.gradle\caches\9.7.0\transforms\bff64301715ee7da68b98868f6d03784\transformed\material-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.material:material-android:1.8.3] C:\Users\karth\.gradle\caches\9.7.0\transforms\bff64301715ee7da68b98868f6d03784\transformed\material-release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.compose.animation:animation-core-android:1.8.3] C:\Users\karth\.gradle\caches\9.7.0\transforms\eb3de81b0f450176bb1a9dbbb3326b89\transformed\animation-core-release\AndroidManifest.xml:5:5-44

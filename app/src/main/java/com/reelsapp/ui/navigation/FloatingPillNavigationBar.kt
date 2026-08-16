@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -77,51 +78,57 @@ fun FloatingPillNavigationBar(
             .fillMaxWidth()
             .height(70.dp)
             .shadow(
-                elevation = 20.dp,
+                elevation = 16.dp,
                 shape = CircleShape,
-                ambientColor = Color.Black.copy(alpha = 0.15f),
-                spotColor = Color.Black.copy(alpha = 0.25f)
+                ambientColor = Color.Black.copy(alpha = 0.25f),
+                spotColor = Color.Black.copy(alpha = 0.35f)
             )
             .clip(CircleShape)
-            // 1:1 Hardware RenderEffect Pipeline: Chained 40f Blur + 1.6x ColorMatrix Saturation Boost
-            .graphicsLayer {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    val blurEffect = RenderEffect.createBlurEffect(
-                        40f, 40f,
-                        Shader.TileMode.CLAMP
-                    )
-                    val matrix = ColorMatrix().apply { setSaturation(1.6f) }
-                    val colorFilterEffect = RenderEffect.createColorFilterEffect(
-                        ColorMatrixColorFilter(matrix)
-                    )
-                    renderEffect = RenderEffect.createChainEffect(blurEffect, colorFilterEffect).asComposeRenderEffect()
-                }
-            }
-            // 1:1 Base Tint: Crisp white layer with exact 0.28f alpha blend
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color.White.copy(alpha = 0.72f),
-                        Color.White.copy(alpha = 0.58f)
-                    )
-                )
-            )
-            // Crisp Specular Glass Rim Highlight Edge
             .border(
                 width = 1.25.dp,
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color.White.copy(alpha = 0.95f),
-                        Color.White.copy(alpha = 0.40f)
+                        Color.White.copy(alpha = 0.90f),
+                        Color.White.copy(alpha = 0.30f)
                     )
                 ),
                 shape = CircleShape
-            )
-            .padding(5.dp),
+            ),
         contentAlignment = Alignment.Center
     ) {
+        // Isolated Backdrop Box: RenderEffect blur + liquid saturation engine
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        val blurEffect = RenderEffect.createBlurEffect(
+                            35f, 35f,
+                            Shader.TileMode.CLAMP
+                        )
+                        val matrix = ColorMatrix().apply { setSaturation(1.8f) }
+                        val colorFilterEffect = RenderEffect.createColorFilterEffect(
+                            ColorMatrixColorFilter(matrix)
+                        )
+                        renderEffect = RenderEffect.createChainEffect(blurEffect, colorFilterEffect).asComposeRenderEffect()
+                    }
+                }
+                // High contrast translucent liquid tint: 35% opacity white
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFFF8F9FA).copy(alpha = 0.45f),
+                            Color(0xFFE9ECEF).copy(alpha = 0.25f)
+                        )
+                    )
+                )
+        )
+
+        // Foreground Content Layer: Sharp crisp navigation items
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -136,7 +143,6 @@ fun FloatingPillNavigationBar(
                     label = "tabScale"
                 )
 
-                // Dark Selection Pill Capsule Highlight with Green Brand Accent (BrandEmerald)
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -146,7 +152,7 @@ fun FloatingPillNavigationBar(
                         .then(
                             if (isSelected) {
                                 Modifier.background(
-                                    Color.Black.copy(alpha = 0.12f)
+                                    Color.Black.copy(alpha = 0.14f)
                                 )
                             } else Modifier
                         )
@@ -166,13 +172,13 @@ fun FloatingPillNavigationBar(
                         Icon(
                             imageVector = item.icon,
                             contentDescription = item.title,
-                            tint = if (isSelected) BrandEmerald else Color(0xFF636366),
+                            tint = if (isSelected) BrandEmerald else Color(0xFF3A3A3C),
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(Modifier.height(2.dp))
                         Text(
                             text = item.title,
-                            color = if (isSelected) BrandEmerald else Color(0xFF636366),
+                            color = if (isSelected) BrandEmerald else Color(0xFF3A3A3C),
                             fontSize = 11.sp,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                             maxLines = 1,
