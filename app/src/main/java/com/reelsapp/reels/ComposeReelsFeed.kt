@@ -326,7 +326,8 @@ private fun ReelPageItem(
                 )
             }
     ) {
-        if (isCurrentPage) {
+        // Video Player (Only attached for normal video reels)
+        if (isCurrentPage && !reel.isAiImage) {
             AndroidView(
                 factory = { ctx ->
                     FrameLayout(ctx).apply {
@@ -352,6 +353,7 @@ private fun ReelPageItem(
             )
         }
 
+        // Image Display (Always visible for AI Artwork, or crossfaded thumbnail for Video Reels)
         AsyncImage(
             model = reel.thumbnailUrl,
             contentDescription = null,
@@ -376,9 +378,9 @@ private fun ReelPageItem(
                 )
         )
 
-        // 🎬 YouTube-Style Centered Vertical Controls Stack: [Previous 🔼 Above] -> [Play/Pause ⏯️ Center] -> [Next 🔽 Below]
+        // 🎬 YouTube-Style Centered Vertical Controls Stack (Only shown for video reels)
         AnimatedVisibility(
-            visible = showControlsOverlay || !isPlaying,
+            visible = !reel.isAiImage && (showControlsOverlay || !isPlaying),
             enter = fadeIn(spring()),
             exit = fadeOut(spring()),
             modifier = Modifier.align(Alignment.Center)
