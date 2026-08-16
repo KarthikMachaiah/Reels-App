@@ -68,37 +68,37 @@ fun FloatingPillNavigationBar(
 
     Box(
         modifier = modifier
-            .padding(horizontal = 28.dp, vertical = 20.dp)
+            .padding(horizontal = 24.dp, vertical = 18.dp)
             .fillMaxWidth()
-            .height(76.dp)
+            .height(84.dp)
             .shadow(
-                elevation = 16.dp,
-                shape = CircleShape,
-                ambientColor = Color.Black.copy(alpha = 0.15f),
-                spotColor = Color.Black.copy(alpha = 0.25f)
+                elevation = 24.dp,
+                shape = RoundedCornerShape(42.dp),
+                ambientColor = Color.Black.copy(alpha = 0.35f),
+                spotColor = Color.Black.copy(alpha = 0.45f)
             )
-            .clip(CircleShape)
-            // Liquid Frosted Glass translucency matching Apple Liquid Glass Dribbble 26294545
+            .clip(RoundedCornerShape(42.dp))
+            // Outer Liquid Glass Container (Dark Translucent Frosted Glass from Dribbble 26294545)
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color.White.copy(alpha = 0.78f),
-                        Color.White.copy(alpha = 0.48f)
+                        Color(0xFF2A2B30).copy(alpha = 0.78f),
+                        Color(0xFF1B1C20).copy(alpha = 0.88f)
                     )
                 )
             )
-            // Double specular inner glass rim
+            // 3D Glass Specular Rim Border
             .border(
-                width = 1.5.dp,
+                width = 1.25.dp,
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color.White.copy(alpha = 0.95f),
-                        Color.White.copy(alpha = 0.35f)
+                        Color.White.copy(alpha = 0.55f),
+                        Color.White.copy(alpha = 0.12f)
                     )
                 ),
-                shape = CircleShape
+                shape = RoundedCornerShape(42.dp)
             )
-            .padding(6.dp),
+            .padding(8.dp),
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -109,7 +109,7 @@ fun FloatingPillNavigationBar(
             navTabs.forEach { item ->
                 val isSelected = currentTab == item.tab
                 val scale by animateFloatAsState(
-                    targetValue = if (isSelected) 1.04f else 1.0f,
+                    targetValue = if (isSelected) 1.05f else 1.0f,
                     animationSpec = spring(
                         dampingRatio = Spring.DampingRatioMediumBouncy,
                         stiffness = Spring.StiffnessMedium
@@ -117,23 +117,34 @@ fun FloatingPillNavigationBar(
                     label = "tabScale"
                 )
 
-                // Liquid selection pill capsule matching reference.jpg
+                // 3D Liquid Glass Selection Capsule matching original-2cf5fc24ef7c55b847ab0578bc63b790.webp
                 Box(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
                         .scale(scale)
-                        .clip(CircleShape)
+                        .clip(RoundedCornerShape(32.dp))
                         .then(
                             if (isSelected) {
-                                Modifier.background(
-                                    Brush.verticalGradient(
-                                        colors = listOf(
-                                            Color.Black.copy(alpha = 0.14f),
-                                            Color.Black.copy(alpha = 0.07f)
+                                Modifier
+                                    .background(
+                                        Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.White.copy(alpha = 0.28f),
+                                                Color.White.copy(alpha = 0.10f)
+                                            )
                                         )
                                     )
-                                )
+                                    .border(
+                                        width = 1.25.dp,
+                                        brush = Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.White.copy(alpha = 0.85f),
+                                                Color.White.copy(alpha = 0.25f)
+                                            )
+                                        ),
+                                        shape = RoundedCornerShape(32.dp)
+                                    )
                             } else Modifier
                         )
                         .clickable(
@@ -152,14 +163,14 @@ fun FloatingPillNavigationBar(
                         Icon(
                             imageVector = item.icon,
                             contentDescription = item.title,
-                            tint = if (isSelected) Color(0xFFFF2D55) else Color(0xFF636366),
+                            tint = if (isSelected) Color.White else Color.White.copy(alpha = 0.65f),
                             modifier = Modifier.size(24.dp)
                         )
-                        Spacer(Modifier.height(2.dp))
+                        Spacer(Modifier.height(3.dp))
                         Text(
                             text = item.title,
-                            color = if (isSelected) Color(0xFFFF2D55) else Color(0xFF636366),
-                            fontSize = 11.sp,
+                            color = if (isSelected) Color.White else Color.White.copy(alpha = 0.65f),
+                            fontSize = 11.5.sp,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                             maxLines = 1,
                             softWrap = false
