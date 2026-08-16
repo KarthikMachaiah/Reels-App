@@ -48,7 +48,7 @@ data class TabItem(
 
 val navTabs = listOf(
     TabItem(AppTab.HOME, "Home", Icons.Filled.Home),
-    TabItem(AppTab.AI_IMAGE, "AI Image", Icons.Filled.AutoAwesome),
+    TabItem(AppTab.AI_IMAGE, "AI", Icons.Filled.AutoAwesome),
     TabItem(AppTab.JUST_REELS, "Reels", Icons.Filled.PlayArrow),
     TabItem(AppTab.PROFILE, "Profile", Icons.Filled.Person)
 )
@@ -63,7 +63,7 @@ fun FloatingPillNavigationBar(
 
     Box(
         modifier = modifier
-            .padding(horizontal = 20.dp, vertical = 14.dp)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
             .fillMaxWidth()
             .height(64.dp)
             .clip(CircleShape)
@@ -115,7 +115,7 @@ fun FloatingPillNavigationBar(
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(horizontal = 8.dp)
+                        modifier = Modifier.padding(horizontal = 6.dp)
                     ) {
                         Icon(
                             imageVector = item.icon,
@@ -127,9 +127,11 @@ fun FloatingPillNavigationBar(
                             Text(
                                 text = item.title,
                                 color = Color.White,
-                                fontSize = 12.sp,
+                                fontSize = 13.sp,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(start = 6.dp)
+                                maxLines = 1,
+                                softWrap = false,
+                                modifier = Modifier.padding(start = 5.dp)
                             )
                         }
                     }
