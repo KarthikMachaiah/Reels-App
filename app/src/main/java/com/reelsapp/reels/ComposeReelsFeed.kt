@@ -130,7 +130,7 @@ fun ComposeReelsFeed(
     var showCommentsSheet by remember { mutableStateOf(false) }
     var showShareSheet by remember { mutableStateOf(false) }
 
-    BackHandler(enabled = true) {
+    BackHandler(enabled = showCommentsSheet || showShareSheet || onBackClick != null) {
         when {
             showCommentsSheet -> showCommentsSheet = false
             showShareSheet -> showShareSheet = false
