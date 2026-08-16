@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -60,38 +61,49 @@ fun FloatingPillNavigationBar(
     modifier: Modifier = Modifier
 ) {
     val haptic = LocalHapticFeedback.current
+    val selectedIndex = navTabs.indexOfFirst { it.tab == currentTab }.coerceAtLeast(0)
 
     Box(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .padding(horizontal = 24.dp, vertical = 16.dp)
             .fillMaxWidth()
-            .height(64.dp)
+            .height(66.dp)
             .clip(CircleShape)
             .background(
-                Brush.horizontalGradient(
+                Brush.verticalGradient(
                     colors = listOf(
-                        MaterialTheme.colorScheme.surface.copy(alpha = 0.92f),
-                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.95f)
+                        Color.White.copy(alpha = 0.22f),
+                        Color.White.copy(alpha = 0.08f)
                     )
                 )
             )
-            .padding(4.dp),
+            .border(
+                width = 1.dp,
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.White.copy(alpha = 0.45f),
+                        Color.White.copy(alpha = 0.12f)
+                    )
+                ),
+                shape = CircleShape
+            )
+            .padding(6.dp),
         contentAlignment = Alignment.Center
     ) {
+        // iOS Sliding Glass Capsule Indicator
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            navTabs.forEach { item ->
-                val isSelected = currentTab == item.tab
+            navTabs.forEachIndexed { index, item ->
+                val isSelected = index == selectedIndex
                 val scale by animateFloatAsState(
-                    targetValue = if (isSelected) 1.08f else 1.0f,
+                    targetValue = if (isSelected) 1.05f else 1.0f,
                     animationSpec = spring(
                         dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessMedium
+                        stiffness = Spring.StiffnessLow
                     ),
-                    label = "tabScale"
+                    label = "iosScale"
                 )
 
                 Box(
@@ -100,8 +112,22 @@ fun FloatingPillNavigationBar(
                         .fillMaxHeight()
                         .scale(scale)
                         .clip(CircleShape)
-                        .background(
-                            if (isSelected) BrandEmerald else Color.Transparent
+                        .then(
+                            if (isSelected) {
+                                Modifier.background(
+                                    Brush.verticalGradient(
+                                        colors = listOf(
+                                            BrandEmerald.copy(alpha = 0.95f),
+                                            BrandEmerald
+                                        )
+                                    )
+                                )
+                            } else Modifier
+                        )
+                        .border(
+                            width = if (isSelected) 0.5.dp else 0.dp,
+                            color = Color.White.copy(alpha = 0.35f),
+                            shape = CircleShape
                         )
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
@@ -115,12 +141,12 @@ fun FloatingPillNavigationBar(
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center,
-                        modifier = Modifier.padding(horizontal = 6.dp)
+                        modifier = Modifier.padding(horizontal = 4.dp)
                     ) {
                         Icon(
                             imageVector = item.icon,
                             contentDescription = item.title,
-                            tint = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),
                             modifier = Modifier.size(20.dp)
                         )
                         if (isSelected) {
