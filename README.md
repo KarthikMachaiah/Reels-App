@@ -2,7 +2,7 @@
 
 A modern, high-performance Android Reels application built completely from scratch using **Jetpack Compose**, **ExoPlayer (Media3)**, **Kotlin Flow**, and **Live Generative AI (Pollinations.ai / Flux)**.
 
-Featuring a floating animated glassmorphism navigation pill, full-screen vertical video reels feed, a 150 MB LRU disk caching system for instant offline re-playback, a dedicated generative AI Studio screen, and a dark/light theme engine.
+Featuring a floating animated Liquid Glassmorphism navigation bar, full-screen vertical video reels feed, full-screen AI artwork generation, a 150 MB LRU disk caching system for instant offline re-playback, and a dark/light theme engine.
 
 ---
 
@@ -43,17 +43,18 @@ ComposeReelsFeed(
 
 ## 🚀 Application & Architecture Highlights
 
-### ⚡ 1. Floating Animated Glassmorphism Navigation Bar
-- Modern floating pill navigation bar featuring **4 main tabs**:
+### ⚡ 1. Floating Animated Liquid Glassmorphism Navigation Bar
+- Modern floating glass navigation bar featuring **4 main tabs**:
   - 🏠 **Home**: Hero dashboard launcher with smooth bouncy dialog prompt.
-  - 🤖 **AI Reels**: Live Generative AI Studio screen.
-  - 🎬 **Just Reels**: Full-screen vertical video reels feed with auto-hiding navigation bar during playback.
+  - ✨ **AI**: Real-time Text-to-AI Image Generation Studio screen.
+  - 🎬 **Reels**: Full-screen vertical video reels feed with auto-hiding navigation bar during playback.
   - 👤 **Profile**: Profile dashboard featuring live Light/Dark mode theme toggle.
-- Tactile **Haptic Feedback** and spring-scale selection animations.
+- Liquid frosted glass finish with double-pass border stroke, tactile **Haptic Feedback**, and spring-scale selection animations.
 
 ### 🧠 2. Real-Time Text-to-AI Image Generation Engine
 - Powered by **Pollinations AI** (Flux.1 / Stable Diffusion models).
-- Type any prompt (e.g. *"Cyberpunk City 2077"*, *"Futuristic Neon Cat"*, *"Underwater Floating City"*) to render **brand-new, high-definition 9:16 vertical AI artwork on-demand**.
+- Type any prompt (e.g. *"Cyberpunk City 2077"*, *"Futuristic Neon Cat"*, *"Underwater Floating City"*) to render **brand-new, high-definition 9:16 vertical full-screen AI artwork on-demand**.
+- Pure image display engine without video player overhead.
 
 ### 💾 3. 150 MB LRU Disk Cache System
 - Built-in `ReelPlayerManager` initializes ExoPlayer with a `SimpleCache` and `LeastRecentlyUsedCacheEvictor(150 MB)`.
@@ -74,7 +75,7 @@ com.reelsapp
 ├── ReelsApplication.kt                  # Application class with Hilt DI
 ├── reels                                # 📦 REUSABLE REELS LIBRARY PACKAGE
 │   ├── ComposeReelsFeed.kt              # Main Reusable Vertical Pager Component
-│   ├── ReelItem.kt                      # Data model for reels feed
+│   ├── ReelItem.kt                      # Data model for reels feed & AI images
 │   ├── ReelPlayerManager.kt             # ExoPlayer pool & 150MB LRU disk cache
 │   ├── DummyReelsData.kt                # Media assets & offline fallback data
 │   ├── api/                             # Network API models
@@ -84,7 +85,7 @@ com.reelsapp
     ├── navigation/                      # AppTab enum & FloatingPillNavigationBar
     ├── screens/
     │   ├── HomeScreen.kt                # Root container & Home dashboard
-    │   ├── AiReelsScreen.kt             # Live Text-to-AI Image Generation Screen
+    │   ├── AiImageScreen.kt             # Live Text-to-AI Image Generation Screen
     │   └── ProfileScreen.kt             # User profile & Light/Dark Theme Switcher
     └── theme/                           # Custom design system & theme transitions
 ```
