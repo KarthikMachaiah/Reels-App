@@ -1,32 +1,34 @@
-# 🎬 Native Reels App & Reusable Compose Reels Component
+# 🎬 Native Reels & AI Studio App (100% Jetpack Compose)
 
-A high-performance, modern Android Reels application and reusable Jetpack Compose Reels library component built from scratch using **Jetpack Compose**, **ExoPlayer (Media3)**, and **Kotlin Flow**. Designed for seamless vertical video feed swiping, HD playback, YouTube-style tap gestures, and rich interactive social bottom sheets.
+A modern, high-performance Android Reels application built completely from scratch using **Jetpack Compose**, **ExoPlayer (Media3)**, **Kotlin Flow**, and **Live Generative AI (Pollinations.ai / Flux)**.
+
+Featuring a floating animated glassmorphism navigation pill, full-screen vertical video reels feed, a 150 MB LRU disk caching system for instant offline re-playback, a dedicated generative AI Studio screen, and a dark/light theme engine.
 
 ---
 
-## 📦 How to Import & Use this Library Component in ANY Android App
+## 📦 How to Import & Use the Reusable Reels Library Component
 
-You can easily copy and drop the `reels` package into **ANY Jetpack Compose Android app** in 3 simple steps:
+You can easily drop the standalone `reels` library package into **ANY Jetpack Compose Android application**:
 
 ### 1. Copy the `reels` Package
-Copy the `reels` package folder (`ReelItem.kt`, `ComposeReelsFeed.kt`, `ReelPlayerManager.kt`) into your app target source directory.
+Copy the `reels` package folder (`ReelItem.kt`, `ComposeReelsFeed.kt`, `ReelPlayerManager.kt`) directly into your project source root.
 
 ### 2. Add Gradle Dependencies
-Ensure your target `app/build.gradle.kts` includes AndroidX Media3 & Coil:
+Ensure your app `build.gradle.kts` has ExoPlayer & Coil:
 ```kotlin
 implementation("androidx.media3:media3-exoplayer:1.5.1")
 implementation("androidx.media3:media3-ui:1.5.1")
 implementation("io.coil-kt.coil3:coil-compose:3.1.0")
 ```
 
-### 3. Call `ComposeReelsFeed` in Any Screen
+### 3. Render `ComposeReelsFeed` in Any Screen
 ```kotlin
 val myReels = listOf(
     ReelItem(
         id = "1",
-        videoUrl = "https://yourserver.com/video.mp4",
-        thumbnailUrl = "https://yourserver.com/thumb.jpg",
-        title = "Awesome Custom Reel 🎬 #Android",
+        videoUrl = "https://yourserver.com/reel.mp4",
+        thumbnailUrl = "https://yourserver.com/thumbnail.jpg",
+        title = "Modern Compose Reel 🎬 #Android",
         username = "karthik"
     )
 )
@@ -39,87 +41,70 @@ ComposeReelsFeed(
 
 ---
 
-## 🚀 Component Highlights & Features
+## 🚀 Application & Architecture Highlights
 
-- **📱 Plug-and-Play Integration**: Accepts any list of `ReelItem` objects with zero external UI coupling.
-- **🎬 ExoPlayer (Media3) Pooling**: Built-in `ReelPlayerManager` handles player instance pooling, forced maximum bitrate selection (`20 Mbps`), and automatic memory disposal.
-- **⏯️ YouTube-Style Tap Controls**:
-  - Single-tap anywhere on the screen toggles **Play ↔ Pause** with tactile **Haptic Feedback**.
-  - Centered vertical controls stack with **Previous `[🔼]`**, **Play/Pause `[⏯️]`**, and **Next `[🔽]`** buttons.
-  - Auto-fading controls overlay (fades after 2 seconds during playback).
-- **👍 Thumbs-Up Double-Tap Like System**:
-  - Double-tap anywhere to trigger a spring-animated **Thumbs Up 👍** pop-up.
-  - Interactive social bar with like counts, comment counts, and share options.
-- **💬 Interactive Bottom Sheets**:
-  - **Comments Sheet**: Real-time comment posting under user profile `@karthik`.
-  - **Share Sheet**: Native Android intent launcher for sharing reels to external apps.
-- **👤 Custom Creator Profile Integration**: Built-in user avatar and personalized audio attribution.
-- **🎨 Edge-to-Edge Dark Mode Visuals**: Custom dark theme with vibrant emerald accents (`BrandEmerald`).
+### ⚡ 1. Floating Animated Glassmorphism Navigation Bar
+- Modern floating pill navigation bar featuring **4 main tabs**:
+  - 🏠 **Home**: Hero dashboard launcher with smooth bouncy dialog prompt.
+  - 🤖 **AI Reels**: Live Generative AI Studio screen.
+  - 🎬 **Just Reels**: Full-screen vertical video reels feed with auto-hiding navigation bar during playback.
+  - 👤 **Profile**: Profile dashboard featuring live Light/Dark mode theme toggle.
+- Tactile **Haptic Feedback** and spring-scale selection animations.
+
+### 🧠 2. Real-Time Text-to-AI Image Generation Engine
+- Powered by **Pollinations AI** (Flux.1 / Stable Diffusion models).
+- Type any prompt (e.g. *"Cyberpunk City 2077"*, *"Futuristic Neon Cat"*, *"Underwater Floating City"*) to render **brand-new, high-definition 9:16 vertical AI artwork on-demand**.
+
+### 💾 3. 150 MB LRU Disk Cache System
+- Built-in `ReelPlayerManager` initializes ExoPlayer with a `SimpleCache` and `LeastRecentlyUsedCacheEvictor(150 MB)`.
+- Network MP4 streams are saved locally to disk automatically for **instant 0-buffer re-playback**.
+
+### ⏯️ 4. YouTube-Style Tap Controls & Social Interactions
+- Single-tap to toggle Play ↔ Pause.
+- Double-tap anywhere to trigger a spring-animated **Thumbs Up 👍** pop-up.
+- Real-time **Comments Bottom Sheet** and **Native Android Share Sheet**.
+
+---
+
+## 📁 Repository Architecture & Package Overview
+
+```text
+com.reelsapp
+├── MainActivity.kt                      # Edge-to-edge launcher Activity
+├── ReelsApplication.kt                  # Application class with Hilt DI
+├── reels                                # 📦 REUSABLE REELS LIBRARY PACKAGE
+│   ├── ComposeReelsFeed.kt              # Main Reusable Vertical Pager Component
+│   ├── ReelItem.kt                      # Data model for reels feed
+│   ├── ReelPlayerManager.kt             # ExoPlayer pool & 150MB LRU disk cache
+│   ├── DummyReelsData.kt                # Media assets & offline fallback data
+│   ├── api/                             # Network API models
+│   └── repository/                      # Media repository implementation
+└── ui
+    ├── home/                            # Home screen MVI state & Mavericks ViewModel
+    ├── navigation/                      # AppTab enum & FloatingPillNavigationBar
+    ├── screens/
+    │   ├── HomeScreen.kt                # Root container & Home dashboard
+    │   ├── AiReelsScreen.kt             # Live Text-to-AI Image Generation Screen
+    │   └── ProfileScreen.kt             # User profile & Light/Dark Theme Switcher
+    └── theme/                           # Custom design system & theme transitions
+```
 
 ---
 
 ## 🛠️ Technology Stack
 
 - **Language**: Kotlin 2.x
-- **UI Framework**: Jetpack Compose with Material 3 Design
-- **Architecture**: MVI / MVVM powered by Airbnb Mavericks
-- **Media Engine**: AndroidX Media3 / ExoPlayer 1.x
+- **UI Framework**: Jetpack Compose (Material 3)
+- **Architecture**: MVI / MVVM (Airbnb Mavericks 3.x)
+- **Media Engine**: AndroidX Media3 / ExoPlayer 1.5.1
+- **AI Synthesis**: Pollinations AI (Flux.1 / Stable Diffusion)
+- **Disk Caching**: Media3 `SimpleCache` + `LeastRecentlyUsedCacheEvictor` (150 MB)
 - **Dependency Injection**: Hilt / Dagger
-- **Asynchronous Processing**: Kotlin Coroutines & Flow
 - **Image Loading**: Coil 3
-- **Network Stack**: Retrofit 2 + OkHttp 4 + kotlinx.serialization
-
----
-
-## 📁 Architecture & Package Structure
-
-```text
-com.reelsapp
-├── main
-│   ├── MainActivity.kt            # Edge-to-edge Activity entry point
-│   └── ReelsApp.kt                # Application class with Hilt setup
-├── reels                          # 📦 REUSABLE REELS LIBRARY PACKAGE
-│   ├── ReelItem.kt                # Reel data model
-│   ├── ReelPlayerManager.kt       # ExoPlayer instance pool & track selector
-│   ├── ComposeReelsFeed.kt        # Standalone Reusable Reels Component
-│   ├── DummyReelsData.kt          # Offline media repository source
-│   └── repository
-│       └── ReelsRepository.kt     # Reels data layer
-└── ui
-    ├── screens
-    │   └── HomeScreen.kt          # Mavericks ViewModel screen container
-    └── theme
-        ├── Color.kt               # Design system color tokens
-        └── Theme.kt               # App theme setup
-```
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Android Studio Ladybug or newer
-- Android SDK 35 (Android 15)
-- JDK 21 / 24
-
-### Installation & Build
-
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/KarthikMachaiah/Reels-App.git
-   cd Reels-App
-   ```
-
-2. **Open in Android Studio**:
-   - Open Android Studio and choose **Open Existing Project**.
-   - Select the `Reels-App` folder.
-
-3. **Build & Run**:
-   - Connect an Android device (Android 8.0 / API 26+) or launch an Emulator.
-   - Run the app using `./gradlew installDebug` or click the **Run `app`** button in Android Studio.
+- **Network Stack**: Retrofit 2 + OkHttp 4
 
 ---
 
 ## 🤝 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. Built with 100% custom code.
