@@ -65,6 +65,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AiReelsScreen(
+    onReelsPlaybackStateChanged: ((Boolean) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     var prompt by remember { mutableStateOf("") }
@@ -88,7 +89,10 @@ fun AiReelsScreen(
         Box(modifier = Modifier.fillMaxSize()) {
             ComposeReelsFeed(
                 reels = generatedReels!!,
-                onBackClick = { generatedReels = null },
+                onBackClick = {
+                    generatedReels = null
+                    onReelsPlaybackStateChanged?.invoke(false)
+                },
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -103,7 +107,7 @@ fun AiReelsScreen(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 24.dp)
-                    .padding(top = 28.dp, bottom = 90.dp), // Extra bottom padding for floating app bar
+                    .padding(top = 28.dp, bottom = 90.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 // Pulsing AI Icon Badge
@@ -187,7 +191,7 @@ fun AiReelsScreen(
                                 if (prompt.isNotBlank() && !isGenerating) {
                                     isGenerating = true
                                     scope.launch {
-                                        delay(1500) // Simulated Gemini 1.5 Flash generation
+                                        delay(1500)
                                         val cleanPrompt = prompt.trim()
                                         generatedReels = listOf(
                                             ReelItem(
@@ -222,6 +226,7 @@ fun AiReelsScreen(
                                             )
                                         )
                                         isGenerating = false
+                                        onReelsPlaybackStateChanged?.invoke(true)
                                     }
                                 }
                             },

@@ -1,11 +1,13 @@
 package com.reelsapp.ui.screens
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -32,10 +34,23 @@ fun HomeScreen(
 ) {
     val state by viewModel.collectAsState()
     var currentTab by remember { mutableStateOf(AppTab.HOME) }
+    var isAiReelActive by remember { mutableStateOf(false) }
 
-    // Intercept back button when on sub-tab or sub-reels
-    BackHandler(enabled = currentTab != AppTab.HOME) {
-        currentTab = AppTab.HOME
+    // Intercept back button when on sub-tab, sub-reels, or AI reel player
+    BackHandler(enabled = currentTab != AppTab.HOME || isAiReelActive) {
+        if (isAiReelActive) {
+            isAiReelActive = false
+        } else {
+            currentTab = AppTab.HOME
+        }
+    }
+
+    // Floating App Bar is hidden when viewing full-screen reels on Home, Just Reels, or when generated AI Reel is playing
+    val isAppNavVisible = when (currentTab) {
+        AppTab.HOME -> false
+        AppTab.JUST_REELS -> false
+        AppTab.AI_REELS -> !isAiReelActive
+        AppTab.PROFILE -> true
     }
 
     Box(
@@ -51,7 +66,7 @@ fun HomeScreen(
         ) { tab ->
             when (tab) {
                 AppTab.HOME -> {
-                    // Home Tab Dashboard
+                    // Home Tab Full Screen Reels Feed
                     Box(modifier = Modifier.fillMaxSize()) {
                         ComposeReelsFeed(
                             reels = if (state.reels.isNotEmpty()) state.reels else DummyReelsData.sampleReels,
@@ -62,7 +77,11 @@ fun HomeScreen(
                 }
                 AppTab.AI_REELS -> {
                     // Dedicated AI Reels Generator Page
-                    AiReelsScreen()
+                    AiReelsScreen(
+                        onReelsPlaybackStateChanged = { isPlaying ->
+                            isAiReelActive = isPlaying
+                        }
+                    )
                 }
                 AppTab.JUST_REELS -> {
                     // Dedicated Original Reels Feed Page
@@ -84,11 +103,17 @@ fun HomeScreen(
             }
         }
 
-        // Floating Glassmorphism Animated Pill Navigation Bar
-        FloatingPillNavigationBar(
-            currentTab = currentTab,
-            onTabSelected = { currentTab = it },
+        // Floating Glassmorphism Animated Pill Navigation Bar (Auto-Hides when reels are playing)
+        AnimatedVisibility(
+            visible = isAppNavVisible,
+            enter = slideInVertically(initialOffsetY = { it }),
+            exit = slideOutVertically(targetOffsetY = { it }),
             modifier = Modifier.align(Alignment.BottomCenter)
-        )
+        ) {
+            FloatingPillNavigationBar(
+                currentTab = currentTab,
+                onTabSelected = { currentTab = it }
+            )
+        }
     }
 }
