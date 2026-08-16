@@ -196,32 +196,22 @@ fun AiReelsScreen(
                                         generatedReels = listOf(
                                             ReelItem(
                                                 id = "ai_1_${System.currentTimeMillis()}",
-                                                videoUrl = "android.resource://com.reelsapp.debug/${R.raw.reel_1}",
-                                                thumbnailUrl = "https://images.unsplash.com/photo-1519766304817-4f37bda74a29?q=80&w=600",
-                                                title = "🤖 AI Reel: $cleanPrompt 🌊 #GeminiAI #Generated",
+                                                videoUrl = "android.resource://com.reelsapp.debug/${R.raw.ai_reel_1}",
+                                                thumbnailUrl = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600",
+                                                title = "🤖 AI Reel: $cleanPrompt ⚡ #GeminiAI",
                                                 username = "gemini_ai_bot",
                                                 userAvatar = R.drawable.karthik_avatar,
-                                                likesCount = "98.4K",
-                                                commentsCount = "4.2K"
+                                                likesCount = "142.8K",
+                                                commentsCount = "6.4K"
                                             ),
                                             ReelItem(
                                                 id = "ai_2_${System.currentTimeMillis()}",
-                                                videoUrl = "android.resource://com.reelsapp.debug/${R.raw.reel_2}",
-                                                thumbnailUrl = "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600",
-                                                title = "⚡ AI Scene 2: $cleanPrompt in motion 🚲",
+                                                videoUrl = "android.resource://com.reelsapp.debug/${R.raw.ai_reel_2}",
+                                                thumbnailUrl = "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600",
+                                                title = "✨ AI Scene 2: $cleanPrompt 🎬 #AIContent",
                                                 username = "gemini_ai_bot",
                                                 userAvatar = R.drawable.karthik_avatar,
-                                                likesCount = "124.1K",
-                                                commentsCount = "5.8K"
-                                            ),
-                                            ReelItem(
-                                                id = "ai_3_${System.currentTimeMillis()}",
-                                                videoUrl = "android.resource://com.reelsapp.debug/${R.raw.reel_3}",
-                                                thumbnailUrl = "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600",
-                                                title = "✨ AI Scene 3: $cleanPrompt final cut 🛒",
-                                                username = "gemini_ai_bot",
-                                                userAvatar = R.drawable.karthik_avatar,
-                                                likesCount = "88.9K",
+                                                likesCount = "89.2K",
                                                 commentsCount = "3.1K"
                                             )
                                         )
