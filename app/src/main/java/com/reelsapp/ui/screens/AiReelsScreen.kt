@@ -193,21 +193,28 @@ fun AiReelsScreen(
                                     scope.launch {
                                         delay(1500)
                                         val cleanPrompt = prompt.trim()
+                                        val lower = cleanPrompt.lowercase()
+                                        val selectedVideo = if (lower.contains("cat") || lower.contains("kitten") || lower.contains("pet")) {
+                                            "android.resource://com.reelsapp.debug/${R.raw.cat_reel}"
+                                        } else {
+                                            "android.resource://com.reelsapp.debug/${R.raw.ai_reel_1}"
+                                        }
+
                                         generatedReels = listOf(
                                             ReelItem(
                                                 id = "ai_1_${System.currentTimeMillis()}",
-                                                videoUrl = "android.resource://com.reelsapp.debug/${R.raw.ai_reel_1}",
-                                                thumbnailUrl = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600",
-                                                title = "🤖 AI Reel: $cleanPrompt ⚡ #GeminiAI",
+                                                videoUrl = selectedVideo,
+                                                thumbnailUrl = "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=600",
+                                                title = "🐱 AI Reel: $cleanPrompt 🐾 #GeminiAI #CatContent",
                                                 username = "gemini_ai_bot",
                                                 userAvatar = R.drawable.karthik_avatar,
-                                                likesCount = "142.8K",
-                                                commentsCount = "6.4K"
+                                                likesCount = "248.5K",
+                                                commentsCount = "12.8K"
                                             ),
                                             ReelItem(
                                                 id = "ai_2_${System.currentTimeMillis()}",
                                                 videoUrl = "android.resource://com.reelsapp.debug/${R.raw.ai_reel_2}",
-                                                thumbnailUrl = "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600",
+                                                thumbnailUrl = "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?q=80&w=600",
                                                 title = "✨ AI Scene 2: $cleanPrompt 🎬 #AIContent",
                                                 username = "gemini_ai_bot",
                                                 userAvatar = R.drawable.karthik_avatar,
